@@ -7,5 +7,15 @@ return {
   "AstroNvim/astrocommunity",
   -- { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.colorscheme.nordic-nvim" },
+  { import = "astrocommunity.completion.codeium-vim" },
+  { import = "astrocommunity.editing-support.cutlass-nvim" },
+  {
+    "gbprod/cutlass.nvim",
+    opts = {
+      cut_key = "m",
+    },
+  },
+  { import = "astrocommunity.motion.nvim-surround", enabled = true },
+  { import = "astrocommunity.markdown-and-latex.vimtex" },
   -- import/override with your plugins folder
 }
