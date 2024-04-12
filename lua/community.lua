@@ -7,7 +7,7 @@ return {
   "AstroNvim/astrocommunity",
   -- { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.colorscheme.nordic-nvim" },
-  { import = "astrocommunity.completion.codeium-vim" },
+  { import = "astrocommunity.completion.codeium-vim", enabled = false },
   { import = "astrocommunity.editing-support.cutlass-nvim" },
   {
     "gbprod/cutlass.nvim",
