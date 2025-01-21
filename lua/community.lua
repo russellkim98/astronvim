@@ -15,6 +15,7 @@ return {
       cut_key = "m",
     },
   },
+  { import = "astrocommunity.recipes.vscode" },
   { import = "astrocommunity.motion.nvim-surround", enabled = true },
   { import = "astrocommunity.markdown-and-latex.vimtex" },
   -- import/override with your plugins folder
