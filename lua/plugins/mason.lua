@@ -1,43 +1,31 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- Customize Mason plugins
 
 ---@type LazySpec
+
+-- In your plugin specifications (e.g., in a file under lua/user/)
 return {
-  -- use mason-lspconfig to configure LSP installations
+  -- ... other plugin specifications ...
   {
     "williamboman/mason-lspconfig.nvim",
-    -- overrides `require("mason-lspconfig").setup(...)`
-    opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "lua_ls",
-        -- add more arguments for adding more language servers
-      })
-    end,
+    dependencies = { "williamboman/mason.nvim" },
+    opts = {
+      ensure_installed = {
+        "pyright", -- Or "ruff_lsp" if you're using that
+        -- Add other LSP servers you want to ensure are installed
+      },
+      handlers = {
+        function(server_name, server_config) -- server_config now passed
+          if server_name == "pyright" then
+            server_config.settings = server_config.settings or {}
+            server_config.settings.python = server_config.settings.python or {}
+            server_config.settings.python.debugger = server_config.settings.python.debugger or {}
+            server_config.settings.python.debugger.justMyCode = false
+          end
+          return server_config
+        end,
+      },
+    },
   },
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  {
-    "jay-babu/mason-null-ls.nvim",
-    -- overrides `require("mason-null-ls").setup(...)`
-    opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "prettier",
-        "stylua",
-        -- add more arguments for adding more null-ls sources
-      })
-    end,
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    -- overrides `require("mason-nvim-dap").setup(...)`
-    opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "python",
-        -- add more arguments for adding more debuggers
-      })
-    end,
-  },
+
+  -- ... other plugin specifications ...
 }
