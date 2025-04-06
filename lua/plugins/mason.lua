@@ -1,33 +1,27 @@
--- Customize Mason plugins
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
+-- Customize Mason
 
 ---@type LazySpec
-
 return {
+  -- use mason-tool-installer for automatically installing Mason packages
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim" },
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    -- overrides `require("mason-tool-installer").setup(...)`
     opts = {
+      -- Make sure to use the names found in `:Mason`
       ensure_installed = {
-        "pyright",
-        -- other LSP servers
-      },
-      handlers = {
-        function(server_name)
-          local lspconfig = require "lspconfig"
-          local opts = {}
+        -- install language servers
+        "lua-language-server",
 
-          if server_name == "pyright" then
-            opts.settings = {
-              python = {
-                debugger = {
-                  justMyCode = false,
-                },
-              },
-            }
-          end
+        -- install formatters
+        "stylua",
 
-          lspconfig[server_name].setup(opts)
-        end,
+        -- install debuggers
+        "debugpy",
+
+        -- install any other package
+        "tree-sitter-cli",
       },
     },
   },
